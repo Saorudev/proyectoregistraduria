@@ -1,0 +1,7 @@
+{
+  "url-backend": "127.0.0.1",
+  "port": 9999,
+
+  "data-db-connection": "mongodb+srv://saorudev:Natsudragneel189-@cluster0.l9gzw3q.mongodb.net/db-proyecto-c4?retryWrites=true&w=majority",
+  "name-db": "db-proyecto-c4"
+}
