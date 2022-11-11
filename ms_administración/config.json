@@ -1,0 +1,10 @@
+{
+    "url-backend": "127.0.0.1",
+    "port": 9999,
+    
+    "data-db-connection": "mongodb+srv://saorudev:dragneel189@cluster1.a479qkb.mongodb.net/be-administracion?retryWrites=true&w=majority",
+    "name-db": "be-administracion"
+}
+
+
+
