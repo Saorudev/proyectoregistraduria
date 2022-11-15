@@ -9,8 +9,7 @@ import com.saorudev.beusuarios.Repositorios.RepositorioPermiso;
 import com.saorudev.beusuarios.Repositorios.RepositorioPermisosRol;
 import com.saorudev.beusuarios.Repositorios.RepositorioRol;
 import java.util.List;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/permisosrol")
@@ -31,18 +30,13 @@ public class ControladorPermisosRol {
         return this.miRepositorioPermisosRol.findAll();
     }
 
-    /**
-     * Asignación rol y permiso
-     * @param id_rol
-     * @param id_permiso
-     * @return
-     */
+    // ASIGNACION ROL Y PERMISO
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("rol/{id_rol}/permiso/{id_permiso}")
     public PermisosRol create(@PathVariable String id_rol,@PathVariable String id_permiso){
-        PermisosRol nuevo=new PermisosRol();
+        PermisosRol nuevo = new PermisosRol();
         Rol elRol=this.miRepositorioRol.findById(id_rol).get();
-        Permiso elPermiso=this.miRepositorioPermiso.findById(id_permiso).get();
+        Permiso elPermiso = this.miRepositorioPermiso.findById(id_permiso).get();
         if (elRol!=null && elPermiso!=null){
             nuevo.setPermiso(elPermiso);
             nuevo.setRol(elRol);
@@ -58,14 +52,7 @@ public class ControladorPermisosRol {
                 .orElse(null);
         return permisosRolesActual;
     }
-
-    /**
-     * Modificación Rol y Permiso
-     * @param id
-     * @param id_rol
-     * @param id_permiso
-     * @return
-     */
+    // Modificacion ROL Y PERMISO
     @PutMapping("{id}/rol/{id_rol}/permiso/{id_permiso}")
     public PermisosRol update(@PathVariable String id,@PathVariable String id_rol,@PathVariable String id_permiso){
         PermisosRol permisosRolActual=this.miRepositorioPermisosRol

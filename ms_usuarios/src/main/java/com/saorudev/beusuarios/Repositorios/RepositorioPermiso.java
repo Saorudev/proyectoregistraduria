@@ -1,5 +1,4 @@
 package com.saorudev.beusuarios.Repositorios;
-
 import com.saorudev.beusuarios.Modelos.Permiso;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

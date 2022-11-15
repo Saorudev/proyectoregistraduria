@@ -1,14 +1,11 @@
 package com.saorudev.beusuarios.Controladores;
 import com.saorudev.beusuarios.Modelos.Permiso;
-import com.saorudev.beusuarios.Modelos.Usuario;
 import com.saorudev.beusuarios.Repositorios.RepositorioPermiso;
-import com.saorudev.beusuarios.Repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/permisos")

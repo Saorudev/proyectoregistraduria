@@ -53,6 +53,11 @@ def eliminarCandidato(id):
     json = miControladorCandidato.delete(id)
     return jsonify(json)
 
+@app.route("/candidatos/<string:id>/partidos/<string:id_partido>",methods=['PUT'])
+def asignarPartidoACandidato(id,id_partido):
+    json = miControladorCandidato.asignarPartido(id, id_partido)
+    return jsonify(json)
+
 #####################################################################
 """ PATHS de Mesa"""
 @app.route("/mesas",methods=['GET'])
@@ -111,31 +116,44 @@ def eliminarPartido(id):
     json = miControladorPartido.delete(id)
     return jsonify(json)
 
+@app.route("/partidos/<string:id>/candidatos",methods=['GET'])
+def getCandidatosPartido(id):
+    json = miControladorPartido.getCandidato(id)
+    return jsonify(json)
+
 #####################################################################
 """ PATHS de Resultado"""
 @app.route("/resultados",methods=['GET'])
 def getResultados():
     json=miControladorResultado.index()
     return jsonify(json)
+
 @app.route("/resultados/<string:id>",methods=['GET'])
 def getResultado(id):
     json=miControladorResultado.show(id)
     return jsonify(json)
-@app.route("/resultados/mesas/<string:id_mesa>/partidos/<string:id_partido>",methods=['POST'])
-def crearResultado(id_estudiante,id_materia):
+
+@app.route("/resultados/mesas/<string:id_mesa>/candidatos/<string:id_candidato>",methods=['POST'])
+def crearResultado(id_mesa,id_candidato):
     data = request.get_json()
-    json=miControladorResultado.create(data,id_estudiante,id_materia)
+    json=miControladorResultado.create(data,id_mesa,id_candidato)
     return jsonify(json)
-@app.route("/resultados/<string:id_resultado>/mesas/<string:id_mesa>/partidos/<string:id_partido>",methods=['PUT'])
-def modificarResultado(id_resultado,id_mesa,id_partido):
+
+@app.route("/resultados/<string:id_resultado>/mesas/<string:id_mesa>/candidatos/<string:id_candidato>",methods=['PUT'])
+def modificarResultado(id_resultado,id_mesa,id_candidato):
     data = request.get_json()
-    json=miControladorResultado.update(id_resultado,data,id_mesa,id_partido)
+    json=miControladorResultado.update(id_resultado,data,id_mesa,id_candidato)
     return jsonify(json)
+
 @app.route("/resultados/<string:id_resultado>",methods=['DELETE'])
 def eliminarResultado(id_resultado):
     json=miControladorResultado.delete(id_resultado)
     return jsonify(json)
 
+@app.route("/resultados/candidatos/<string:id_candidato>",methods=['GET'])
+def resultadoPorCandidato(id_candidato):
+    json=miControladorResultado.listarResultadoEnCandidato(id_candidato)
+    return jsonify(json)
 ####################################################################
 
 def loadFileConfig():

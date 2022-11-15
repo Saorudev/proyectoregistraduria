@@ -1,8 +1,11 @@
 from Repositorios.InterfaceRepositorio import InterfaceRepositorio
 from Modelos.candidatoModel import Candidato
+from bson import ObjectId
 
 class RepositorioCandidato(InterfaceRepositorio[Candidato]):
-    pass
+    def getListadoCandidatosEnPartido(self, id_Candidato):
+      theQuery = {"partido.$id": ObjectId(id_Candidato)}
+      return self.query(theQuery)
 
 #mongodb+srv://saorudev:<password>@cluster1.a479qkb.mongodb.net/?retryWrites=true&w=majority
 """
