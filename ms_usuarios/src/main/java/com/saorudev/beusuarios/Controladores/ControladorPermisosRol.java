@@ -30,9 +30,9 @@ public class ControladorPermisosRol {
         return this.miRepositorioPermisosRol.findAll();
     }
 
-    // ASIGNACION ROL Y PERMISO
+    // Asignación Rol y Permiso
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("rol/{id_rol}/permiso/{id_permiso}")
+    @PostMapping("roles/{id_rol}/permisos/{id_permiso}")
     public PermisosRol create(@PathVariable String id_rol,@PathVariable String id_permiso){
         PermisosRol nuevo = new PermisosRol();
         Rol elRol=this.miRepositorioRol.findById(id_rol).get();
@@ -52,8 +52,8 @@ public class ControladorPermisosRol {
                 .orElse(null);
         return permisosRolesActual;
     }
-    // Modificacion ROL Y PERMISO
-    @PutMapping("{id}/rol/{id_rol}/permiso/{id_permiso}")
+    // Modificacion Rol y Permiso
+    @PutMapping("{id}/roles/{id_rol}/permisos/{id_permiso}")
     public PermisosRol update(@PathVariable String id,@PathVariable String id_rol,@PathVariable String id_permiso){
         PermisosRol permisosRolActual=this.miRepositorioPermisosRol
                 .findById(id)
@@ -65,6 +65,17 @@ public class ControladorPermisosRol {
             permisosRolActual.setRol(elRol);
             return this.miRepositorioPermisosRol.save(permisosRolActual);
         }else{
+            return null;
+        }
+    }
+    @GetMapping("validar-permiso/roles/{id_rol}")
+    public PermisosRol getPermiso(@PathVariable String id_rol, @RequestBody Permiso infoPermiso){
+        Permiso elPermiso = this.miRepositorioPermiso.getPermiso(infoPermiso.getUrl(),infoPermiso.getMetodo());
+        Rol elRol = this.miRepositorioRol.findById(id_rol).get();
+        if ( elPermiso != null && elRol != null){
+            return this.miRepositorioPermisosRol.getPermisoRol(elRol.get_id(), elPermiso.get_id());
+        }
+        else {
             return null;
         }
     }

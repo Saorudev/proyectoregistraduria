@@ -6,12 +6,18 @@ import com.saorudev.beusuarios.Repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 import java.util.List;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.saorudev.beusuarios.Modelos.PermisosRol;
 import com.saorudev.beusuarios.Repositorios.RepositorioPermisosRol;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/usuarios")
@@ -54,7 +60,6 @@ public class ControladorUsuario {
             return null;
         }
     }
-
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("{id}")
     public void delete(@PathVariable String id){
@@ -66,7 +71,7 @@ public class ControladorUsuario {
         }
     }
     //RELACION ENTRE ROL Y USUARIO
-    @PutMapping("{id}/rol/{id_rol}")
+    @PutMapping("{id}/roles/{id_rol}")
     public Usuario asignarRolAUsuario(@PathVariable String id, @PathVariable String id_rol){
         Usuario usuarioActual = this.miRepositorioUsuario
                 .findById(id)
@@ -82,8 +87,21 @@ public class ControladorUsuario {
             return null;
         }
     }
-
-
+    @PostMapping("/validar")
+    public Usuario validate (@RequestBody Usuario infoUsuario,
+                             final HttpServletResponse response) throws IOException {
+        Usuario usuarioActual = this.miRepositorioUsuario
+                .getUserByEmail(infoUsuario.getCorreo());
+        if (usuarioActual != null &&
+            usuarioActual.getContrasena().equals(convertirSHA256(infoUsuario.getContrasena()))){
+            usuarioActual.setContrasena("");
+            return usuarioActual;
+        }
+        else {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return null;
+        }
+    }
     public String convertirSHA256(String password){
         MessageDigest md = null;
         try{

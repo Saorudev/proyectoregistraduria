@@ -154,6 +154,21 @@ def eliminarResultado(id_resultado):
 def resultadoPorCandidato(id_candidato):
     json=miControladorResultado.listarResultadoEnCandidato(id_candidato)
     return jsonify(json)
+
+@app.route("/resultados/resultado_mayor",methods=['GET'])
+def getResultadoMayor():
+    json=miControladorResultado.resultadoMayorporCandidato()
+    return jsonify(json)
+
+@app.route("/resultados/promedio_resultados/candidatos/<string:id_candidato>",methods=['GET'])
+def getPromedioResultadoPorCandidato(id_candidato):
+    json=miControladorResultado.promedioResultadosporCandidato(id_candidato)
+    return jsonify(json)
+
+@app.route("/resultados/suma_resultados/candidatos/<string:id_candidato>",methods=['GET'])
+def getSumaResultados(id_candidato):
+    json=miControladorResultado.sumaResultadosPorCandidato(id_candidato)
+    return jsonify(json)
 ####################################################################
 
 def loadFileConfig():

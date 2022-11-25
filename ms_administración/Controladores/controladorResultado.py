@@ -50,5 +50,14 @@ class ControladorResultado():
     def listarResultadoEnCandidato(self, id_candidato):
         return self.repositorioResultado.getListadoResultadosCandidato(id_candidato) 
     
+    def resultadoMayorporCandidato(self):
+        return self.repositorioResultado.getMayorResultadoPorCandidato()
+
+    def promedioResultadosporCandidato(self):
+        return self.repositorioResultado.promedioResultadosPorCandidato()
+
+    def sumaResultadosPorCandidato(self,id_candidato):
+        return self.repositorioResultado.sumaResultadosPorCandidato(id_candidato) 
+
     def test(self, id_candidato):
         return self.repositorioResultado.test(id_candidato)
