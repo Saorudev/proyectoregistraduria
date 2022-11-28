@@ -1,0 +1,44 @@
+<p>crear works!</p>
+<div class="col-lg-12">
+    <nb-card>
+        <nb-card-header *ngIf="modoCreacion">
+            CREAR ESTUDIANTE
+        </nb-card-header>
+        <nb-card-header *ngIf="!modoCreacion">
+            ACTUALIZAR ESTUDIANTE
+        </nb-card-header>
+        <nb-card-body>
+            <div class="row">
+                <div class="col-3">
+                    <label>Numero</label>
+                </div>
+                <div class="col-9">
+                    <input class="form-control" type="text"
+                        [disabled]="!modoCreacion"
+                        [(ngModel)]="laMesa.numero">
+                    <p *ngIf="intentoEnvio && laMesa.numero ==''">Requerido</p>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-3">
+                    <label>Cantidad Inscritos</label>
+                </div>
+                <div class="col-9">
+                    <input class="form-control" type="text"
+                            [(ngModel)]="laMesa.cantidad_inscritos">
+                    <p *ngIf="intentoEnvio && laMesa.cantidad_inscritos ==''">Requerido</p>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <button *ngIf="modoCreacion" class="btn btn-primary btn-block" (click)="agregar()">          
+                    Crear
+                </button>
+                <button *ngIf="!modoCreacion" class="btn btn-primary btn-block" (click)="editar()">       
+                    Actualizar
+                </button>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</div>
